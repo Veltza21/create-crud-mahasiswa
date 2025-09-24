@@ -13,7 +13,7 @@
     {{-- <link href="{{asset('template_admin')}}/assets/img/favicon.png" rel="icon"> --}}
     <link rel="shortcut icon" href="{{ asset('template-pinterest') }}/docs/assets/img/logo.png" type="image/x-icon">
 
-    <link href="{{ asset('template_admin') }}/img/favicon.ico" rel="icon">
+    <link href="{{ asset('template_admin') }}/assets/img/logo.png" rel="icon">
 
     <link href="{{ asset('template_admin') }}/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -137,7 +137,7 @@
                 </a>
             </li>
             
-            @if(auth()->user()->is_admin == 1)
+            {{-- @if(auth()->user()->is_admin == 1) --}}
                 <li class="nav-item">
                     <a class="nav-link @if (!request()->is('user')) collapsed @endif"
                         href="{{ url('user') }}">
@@ -145,7 +145,14 @@
                         <span>User</span>
                     </a>
                 </li>
-            @endif
+                <li class="nav-item">
+                    <a class="nav-link @if (!request()->is('jurusan')) collapsed @endif"
+                        href="{{ url('jurusan') }}">
+                        <i class="bi bi-broadcast"></i>
+                        <span>Jurusan</span>
+                    </a>
+                </li>
+            {{-- @endif --}}
 
             <li class="nav-item">
                 <a class="nav-link @if (!request()->is('mahasiswa')) collapsed @endif"

@@ -48,8 +48,8 @@
                 </div>
             </div>          
 
-            <div class="col-xxl-12 col-md-12">
-                <div class="card info-card revenue-card">                
+            <div class="col-xxl-6 col-md-6">
+                <div class="card info-card sales-card">                
                     <div class="card-body">
                     <h5 class="card-title">Data Admin <span>| Today</span></h5>
                     <div class="d-flex align-items-center">
@@ -58,6 +58,21 @@
                         </div>
                         <div class="ps-3">
                         <h6>{{$admin}}</h6>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>   
+            <div class="col-xxl-6 col-md-6">
+                <div class="card info-card revenue-card">                
+                    <div class="card-body">
+                    <h5 class="card-title">Data Jurusan <span>| Today</span></h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i class="bi bi-broadcast"></i>
+                        </div>
+                        <div class="ps-3">
+                        <h6>{{$jurusan}}</h6>
                         </div>
                     </div>
                     </div>

@@ -16,8 +16,10 @@
     <div class="card recent-sales overflow-auto">
       <div class="card-body">
         <h5 class="card-title">Data User <span>| Tambahkan Data</span></h5>
+      @if(auth()->user()->is_admin == 1)    
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal">
           Tambah Data</button>
+      @endif
         <table class="table table-borderless datatable">
           <thead>
             <tr>
@@ -44,7 +46,9 @@
                 <td>
                   <button class="btn btn-info edit-button"  data-id="{{ $value->id }}" data-bs-toggle="modal"
                     data-bs-target="#editModal"><i class="bi bi-pencil"></i> Edit</button>
+                @if(auth()->user()->is_admin == 1)
                   <button class="btn btn-danger delete"  data-id="{{ $value->id }}"><i class="bi bi-trash"></i> Hapus</button>
+                @endif
               </td>
             </tr> 
             @endforeach
