@@ -72,16 +72,16 @@
                     </div>
                     @endif 
                     <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your email & password to login</p>
+                    <p class="text-center small">Enter your email / nim & password to login</p>
                   </div>
 
                   <form action="{{url('login_post')}}" method="POST"  class="row g-3 needs-validation" novalidate>
                     @csrf
 
                     <div class="col-12">
-                      <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" id="email" required>
-                        <div class="invalid-feedback">Please enter your Email adddress!</div>
+                      <label for="email" class="form-label">Email / Nim</label>
+                        <input type="text" name="email" class="form-control" id="email" required>
+                        <div class="invalid-feedback">Please enter your Email adddress / nim!</div>
 
                     </div>
 

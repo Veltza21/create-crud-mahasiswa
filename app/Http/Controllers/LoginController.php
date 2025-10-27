@@ -17,23 +17,32 @@ class LoginController extends Controller
     {
         return view('template.auth.login');
     }
-    public function authenticate(Request $request)
+
+   public function authenticate(Request $request)
     {
+        // Validasi input
         $credentials = $request->validate([
-            'email' => 'required|email:dns',
+            'email' => 'required',
             'password' => 'required'
         ]);
-        if (Auth::attempt($credentials)) {
+
+        // Cek apakah input email sebenarnya adalah NIM
+        $loginField = filter_var($credentials['email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'nim';
+
+        // Ambil user berdasarkan NIM atau email
+        $user = User::where($loginField, $credentials['email'])->first();
+
+        if ($user && Auth::attempt([$loginField => $credentials['email'], 'password' => $credentials['password']])) {
             $request->session()->regenerate();
 
-            $user = Auth::user();
             if ($user->is_admin == 1) {
-                return redirect()->intended('dashboard')->with('message_success', 'Berhasil Login');
+                return redirect()->intended('dashboard')->with('message_success', 'Berhasil Login sebagai Admin');
             }
 
             return redirect()->intended('dashboard')->with('message_success', 'Berhasil Login');
         }
-        return back()->with('message_danger', 'Login gagal, Coba Lagi');
+
+        return back()->with('message_danger', 'Login gagal, periksa kembali Email/NIM dan Password Anda');
     }
 
     public function logout(Request $request)

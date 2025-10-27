@@ -67,7 +67,7 @@
                 <span style="color: red">*Kode Tidak Boleh Sama</span> <br>
                 <label class="form-label">Kode</label>
                 <div class="input-group has-validation">
-                  <input type="text" class="form-control" id="kode" required>
+                  <input type="number" class="form-control" id="kode" required>
                 </div>
               </div>
               <div class="col-12 mb-2">
@@ -101,7 +101,7 @@
                 <span style="color: red">*Kode Tidak Boleh Sama</span> <br>
                 <label class="form-label">Kode</label>
                 <div class="input-group has-validation">
-                  <input type="text" class="form-control" id="edit_kode" required>
+                  <input type="number" class="form-control" id="edit_kode" required>
                 </div>
               </div>
               <div class="col-12 mb-2">
@@ -127,10 +127,19 @@
       // Create
       $("#createForm").submit(function(event) {
           event.preventDefault();
+
+          // VALIDASI PANJANG KODE
+          var kode = $("#kode").val();
+          if (kode.length > 6) {
+              alert("Kode tidak boleh lebih dari 6 angka!");
+              return false;
+          }
+
           var formData = new FormData();
           formData.append("_token", "{{ csrf_token() }}");
-          formData.append("kode", $("#kode").val());
+          formData.append("kode", kode);
           formData.append("nama", $("#nama").val());
+
           $.ajax({
               url: '{{ url('jurusan/create') }}',
               type: 'POST',
@@ -169,11 +178,19 @@
       // Update
       $("#editForm").submit(function(event) {
           event.preventDefault();
+
+          // VALIDASI PANJANG KODE
+          var kode = $("#edit_kode").val();
+          if (kode.length > 6) {
+              alert("Kode tidak boleh lebih dari 6 angka!");
+              return false;
+          }
+
           var id = $('#edit_id').val();
           var formData = new FormData();
           formData.append("_token", "{{ csrf_token() }}");
-          formData.append("kode", $("#edit_kode").val());          
-          formData.append("nama", $("#edit_nama").val());          
+          formData.append("kode", kode);
+          formData.append("nama", $("#edit_nama").val());
 
           $.ajax({
               url: '{{ url('jurusan/update') }}/' + id,
@@ -214,4 +231,5 @@
       });
   });
 </script>
+
 @endsection

@@ -137,7 +137,7 @@
                 </a>
             </li>
             
-            {{-- @if(auth()->user()->is_admin == 1) --}}
+            @if(auth()->user()->is_admin == 1)
                 <li class="nav-item">
                     <a class="nav-link @if (!request()->is('user')) collapsed @endif"
                         href="{{ url('user') }}">
@@ -152,7 +152,7 @@
                         <span>Jurusan</span>
                     </a>
                 </li>
-            {{-- @endif --}}
+            @endif
 
             <li class="nav-item">
                 <a class="nav-link @if (!request()->is('mahasiswa')) collapsed @endif"
