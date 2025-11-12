@@ -91,7 +91,7 @@
                 </div>
 
                 <div class="col-12">
-                  <span style="color: red">*Email Tidak Boleh Sama</span> <br>
+                  {{-- <span style="color: red">*Email Tidak Boleh Sama</span> <br> --}}
                   <label class="form-label">Email</label>
                   <div class="input-group has-validation">
                     <input type="email" class="form-control" id="email" required>
@@ -153,7 +153,7 @@
                 </div>
 
                 <div class="col-12">
-                  <span style="color: red">*Email Tidak Boleh Sama</span> <br>
+                  {{-- <span style="color: red">*Email Tidak Boleh Sama</span> <br> --}}
                   <label class="form-label">Email</label>                  
                   <div class="input-group has-validation">
                     <input type="email" class="form-control" id="edit_email" required>
@@ -238,7 +238,7 @@
                 },
                 error: function(xhr) {
                     console.log(xhr.responseText);
-                    alert('Gagal menyimpan. Periksa kembali data Anda.');
+                    alert('Email Tidak Boleh Sama');
                 }
             });
         });
@@ -300,7 +300,9 @@
                 },
                 error: function(xhr) {
                     console.log(xhr.responseText);
-                    alert('Gagal memperbarui. Periksa kembali data Anda.');
+                    // alert('Gagal memperbarui. Periksa kembali data Anda.');
+                    alert('Email Tidak Boleh Sama');
+
                 }
             });
         });

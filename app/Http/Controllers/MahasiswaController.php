@@ -28,6 +28,21 @@ class MahasiswaController extends Controller
     return view('admin.mahasiswa.index', compact('mahasiswa', 'jurusan'));
 }
 
+public function mahasiswa_role_mahasiswa()
+{
+      if (auth()->user()->is_admin == 1) {
+        $mahasiswa = Mahasiswa::with(['jurusan', 'user'])->get();
+    } else {
+        $mahasiswa = Mahasiswa::with(['jurusan', 'user'])
+            ->where('user_id', auth()->id())
+            ->get();
+    }
+
+    $jurusan = Jurusan::all();
+
+    return view('admin.mahasiswa_role_mahasiswa.index', compact('mahasiswa', 'jurusan'));
+}
+
     public function store(Request $request)
     {
       

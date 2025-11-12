@@ -153,6 +153,7 @@
                     </a>
                 </li>
             @endif
+            @if(auth()->user()->is_admin == 1)
 
             <li class="nav-item">
                 <a class="nav-link @if (!request()->is('mahasiswa')) collapsed @endif"
@@ -161,6 +162,18 @@
                     <span>Mahasiswa</span>
                 </a>
             </li>
+            @endif
+
+            @if(auth()->user()->is_admin == 0)
+
+            <li class="nav-item">
+                <a class="nav-link @if (!request()->is('mahasiswa_role_mahasiswa')) collapsed @endif"
+                    href="{{ url('mahasiswa_role_mahasiswa') }}">
+                    <i class="bi bi-geo-fill"></i>
+                    <span>Mahasiswa</span>
+                </a>
+            </li>
+            @endif
          
           
 

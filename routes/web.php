@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'welcome']);
 
     Route::resource('mahasiswa', MahasiswaController::class);
+    Route::get('mahasiswa_role_mahasiswa', [App\Http\Controllers\MahasiswaController::class, 'mahasiswa_role_mahasiswa']);
     
 
     // Route::get('mahasiswa', [App\Http\Controllers\MahasiswaController::class, 'index']);
