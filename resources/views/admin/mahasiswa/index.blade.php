@@ -12,9 +12,21 @@
         object-fit: cover;
         border-radius: 5px;
     }
+
+    .modal-like-card .form-control[readonly] {
+  background-color: #f8f9fa;   /* mirip field non-aktif di modal */
+  color: #212529;
+}
+.modal-like-card {
+  transition: .2s ease;
+}
+.modal-like-card:hover {
+  box-shadow: 0 .5rem 1.25rem rgba(0,0,0,.08);
+}
+
 </style>
 
-<div class="col-12">
+<div class="col-md-12">
   <div class="card recent-sales overflow-auto">
     <div class="card-body">
       <h5 class="card-title">Data Mahasiswa <span>| Tambahkan Data</span></h5>
@@ -22,53 +34,82 @@
       <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal">Tambah Data</button>
       @endif
 
-      <table class="table table-borderless datatable">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Foto</th>
-            <th>NIM</th>
-            <th>Nama</th>
-            <th>Jurusan</th>
-            <th>Tempat Lahir</th>
-            <th>Tanggal Lahir</th>
-            <th>Jenis Kelamin</th>
-            <th>Created by</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($mahasiswa as $value)
-          <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>
-              @if($value->foto)
-                <img src="{{ asset('storage/'.$value->foto) }}" class="foto-preview" alt="Foto {{ $value->nama }}">
-              @else
-                <span class="text-muted">-</span>
-              @endif
-            </td>
-            <td>{{ $value->nim }}</td>
-            <td>{{ $value->nama }}</td>
-            <td>{{ $value->jurusan->nama }}</td>
-            <td>{{ $value->tempat_lahir }}</td>
-            <td>{{ \Carbon\Carbon::parse($value->tanggal_lahir)->translatedFormat('d F Y') }}</td>
-            <td>{{ $value->jenis_kelamin }}</td>
-            <td>{{ $value->user->name ?? '-' }}</td>
-            <td>
-              <button class="btn btn-sm btn-info edit-button" data-id="{{ $value->id }}" data-bs-toggle="modal" data-bs-target="#editModal">
-                <i class="bi bi-pencil"></i> Edit
-              </button>
-              @if(auth()->user()->is_admin == 1)
-              <button class="btn btn-sm btn-danger delete" data-id="{{ $value->id }}">
-                <i class="bi bi-trash"></i> Hapus
-              </button>
-              @endif
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
+     <div class="row g-3">
+  @foreach ($mahasiswa as $value)
+    <div class="col-lg-12">
+      <div class="modal-like-card p-3 p-md-4 rounded-3 shadow-sm border bg-white">
+        <div class="d-flex gap-3 align-items-start mb-3">
+          <div class="flex-grow-1">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label mb-1">NIM</label>
+                <input type="text" class="form-control" value="{{ $value->nim }}" readonly>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label mb-1">Nama</label>
+                <input type="text" class="form-control" value="{{ $value->nama }}" readonly>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label mb-1">Jurusan</label>
+                <input type="text" class="form-control" 
+                       value="{{ ($value->jurusan->kode ?? '') ? ($value->jurusan->kode.' - '.$value->jurusan->nama) : $value->jurusan->nama }}" 
+                       readonly>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label mb-1">Tempat Lahir</label>
+                <input type="text" class="form-control" value="{{ $value->tempat_lahir }}" readonly>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label mb-1">Tanggal Lahir</label>
+                <input type="text" class="form-control" 
+                       value="{{ \Carbon\Carbon::parse($value->tanggal_lahir)->translatedFormat('d/m/Y') }}" 
+                       readonly>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label mb-1">Jenis Kelamin</label>
+                <input type="text" class="form-control" value="{{ $value->jenis_kelamin }}" readonly>
+              </div>
+
+              <div class="col-12">
+                <label class="form-label mb-1">Created by</label>
+                <input type="text" class="form-control" value="{{ $value->user->name ?? '-' }}" readonly>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center" style="min-width:96px">
+            @if($value->foto)
+              <img src="{{ asset('storage/'.$value->foto) }}"
+                   alt="Foto {{ $value->nama }}" class="rounded-3"
+                   style="width:96px;height:96px;object-fit:cover;">
+            @else
+              <div class="bg-light border rounded-3 d-flex align-items-center justify-content-center"
+                   style="width:96px;height:96px;">-</div>
+            @endif
+            <small class="text-muted d-block mt-1">Foto (max 500KB)</small>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 flex-wrap">
+          <button class="btn btn-info edit-button"
+                  data-id="{{ $value->id }}"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editModal">
+            <i class="bi bi-pencil"></i> Edit
+          </button>
+          @if(auth()->user()->is_admin == 1)
+            <button class="btn btn-danger delete" data-id="{{ $value->id }}">
+              <i class="bi bi-trash"></i> Hapus
+            </button>
+          @endif
+        </div>
+      </div>
+    </div>
+  @endforeach
+</div>
+
     </div>
   </div>
 </div>
